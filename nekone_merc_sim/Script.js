@@ -52,6 +52,7 @@ window.onload = function () {
 		let state = 0;								//現在のゲーム状態
 		let timelimit = 30;
 		let bp = 1000;
+		let intervalId;
 
 		//グローバル変数終わり
 		/////////////////////////////////////////////////
@@ -111,7 +112,7 @@ window.onload = function () {
 				function countdown() {
 				  timelimit--;
 				} 
-				setInterval(countdown,1000);
+				intervalId = setInterval(countdown,1000);
 				state = 1;
 			}
 
@@ -193,6 +194,8 @@ window.onload = function () {
 			state = 0;
 			bp = 1000;
 			timelimit = 30;
+			point = 0;
+			clearInterval(intervalId);
 			game.popScene();						//endSceneシーンを外す
 			game.pushScene(mainScene);					//mainSceneシーンを入れる
 		};
