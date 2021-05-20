@@ -207,7 +207,7 @@ window.onload = function () {
 			//ツイートＡＰＩに送信
 			//結果ツイート時にURLを貼るため、このゲームのURLをここに記入してURLがツイート画面に反映されるようにエンコードする
 			const url = encodeURI("https://nekone0510.github.io/");
-			window.open("http://twitter.com/intent/tweet?text=祈りクリッカーで" + point * 2.5 + "％祈りました&url=" + url);
+			window.open("http://twitter.com/intent/tweet?text=" + point * 2.5 + "％祈りました&url=" + url);
 		};
 
 	};
