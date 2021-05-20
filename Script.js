@@ -52,6 +52,7 @@ window.onload = function () {
 		let state = 0;								//現在のゲーム状態
 		let timelimit = 30;
 		let bp = 1000;
+		let intervalId;
 
 		//グローバル変数終わり
 		/////////////////////////////////////////////////
@@ -61,6 +62,12 @@ window.onload = function () {
 		const mainScene = new Scene();					//シーン作成
 		game.pushScene(mainScene);  					//mainSceneシーンオブジェクトを画面に設置
 		mainScene.backgroundColor = "white"; 
+
+		//ゲート
+		const gateImg = new Sprite(150, 150);				//画像サイズをここに書く。使う予定の画像サイズはプロパティで見ておくこと
+		gateImg.moveTo(125, 100);						//ゲートの位置
+		gateImg.image = game.assets[GateImgUrl];			//読み込む画像の相対パスを指定。　事前にgame.preloadしてないと呼び出せない
+		mainScene.addChild(gateImg);					//mainSceneにこのゲート画像を貼り付ける  
 
 		//ポイント表示テキスト
 		const scoreText = new Label(); 					//テキストはLabelクラス
@@ -92,12 +99,6 @@ window.onload = function () {
 
 		bpText.text = "BP：" + bp;
 
-		//ゲート
-		const gateImg = new Sprite(150, 150);				//画像サイズをここに書く。使う予定の画像サイズはプロパティで見ておくこと
-		gateImg.moveTo(125, 100);						//ゲートの位置
-		gateImg.image = game.assets[GateImgUrl];			//読み込む画像の相対パスを指定。　事前にgame.preloadしてないと呼び出せない
-		mainScene.addChild(gateImg);					//mainSceneにこのゲート画像を貼り付ける  
-
 		//祈りボタン
 		const prayBtn = new Sprite(100, 60);
 		prayBtn.moveTo(75, 250);
@@ -111,7 +112,8 @@ window.onload = function () {
 				function countdown() {
 				  timelimit--;
 				} 
-				setInterval(countdown,1000);
+				
+				intervalId = setInterval(countdown,1000);
 				state = 1;
 			}
 
@@ -193,6 +195,8 @@ window.onload = function () {
 			state = 0;
 			bp = 1000;
 			timelimit = 30;
+			point = 0;
+			clearInterval(intervalId);
 			game.popScene();						//endSceneシーンを外す
 			game.pushScene(mainScene);					//mainSceneシーンを入れる
 		};
